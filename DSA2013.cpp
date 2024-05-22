@@ -26,18 +26,17 @@ void sieve(int max_val) {
 }
 
 void Try(int i, int pos, int sum) {
-    if (sum == s && i == n) {
-        ans.push_back(tmp);
-        return;
-    }
-    if (sum > s || i >= n) {
-        return;
-    }
     for (int j = pos; j < a.size(); ++j) {
         if (a[j] > p) {
             tmp.push_back(a[j]);
-            Try(i + 1, j + 1, sum + a[j]);
-            tmp.pop_back();
+            sum += a[j];
+            if (sum == s && tmp.size() == n) {
+		        ans.push_back(tmp);
+    		} else if(sum <= s && tmp.size() < n) {
+    			Try(i + 1, j + 1, sum);
+			}
+			tmp.pop_back();
+			sum -= a[j];
         }
     }
 }
